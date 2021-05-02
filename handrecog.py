@@ -38,7 +38,7 @@ COLS = 28
 
 #Load model
 print('Loading Neural Network...\n')
-model = tf.keras.models.load_model('keras_convent_adam')
+model = tf.keras.models.load_model('mnist_trained_model.h5')
 #model = tf.keras.models.load_weights('keras_convent_adam')
 
 # Construct arguments for PiCamera.
