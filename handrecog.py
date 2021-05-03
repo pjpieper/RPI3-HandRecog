@@ -79,17 +79,18 @@ def run_network(img_final):
 	#Array printout of each possible digit.
 	answer = model.predict(img_final)
 	print(answer)
-	digit = model.predict_classes(img_final)
 
 	#Digit with the greatest possibility is the prediction
 	prediction = answer[0].tolist().index(max(answer[0].tolist()))
 	print('The predicted digit is: ', prediction)
 
 	#Get confidence value
-	confidences = np.squeeze(model.predict(img_final))
+	confidences = np.squeeze(model.predict_proba(img_final))
 	topClass = np.argmax(confidences)
 	topConf = confidences[topClass]
-	
+	print(topClass)
+	print(confidences)
+
 	#Update Sensehat LED display when over the 50% threshold
 	if topConf > .5:
 
@@ -110,7 +111,7 @@ def main():
 
 			#Resizes image input from VideoStream to 800px wide, auto adjust height.
 			frame = vidStream.read()
-			frame = imutils.resize(frame, width=800)
+			frame = imutils.resize(frame, width=400)
 		 
 			#Creates a timestamp on the image.
 			timestamp = datetime.datetime.now()
