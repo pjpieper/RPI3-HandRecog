@@ -1,6 +1,13 @@
 import numpy as np
 from tensorflow import keras
 from tensorflow.keras import layers
+from keras.datasets import mnist
+from keras.preprocessing.image import ImageDataGenerator
+from matplotlib import pyplot
+
+"""
+## Prepare the data
+"""
 
 # Model / data parameters
 num_classes = 10
@@ -19,10 +26,20 @@ print("x_train shape:", x_train.shape)
 print(x_train.shape[0], "train samples")
 print(x_test.shape[0], "test samples")
 
+shift = 0.2
+# define data preparation
+datagen = ImageDataGenerator(rotation_range=30,width_shift_range=shift, height_shift_range=shift)
+# fit parameters from data
+datagen.fit(x_train)
+
 
 # convert class vectors to binary class matrices
 y_train = keras.utils.to_categorical(y_train, num_classes)
 y_test = keras.utils.to_categorical(y_test, num_classes)
+
+"""
+## Build the model
+"""
 
 model = keras.Sequential(
     [
@@ -39,16 +56,23 @@ model = keras.Sequential(
 
 model.summary()
 
+"""
+## Train the model
+"""
+
 batch_size = 128
 epochs = 15
 
 model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 
-model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, validation_split=0.1)
+history = model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, validation_split=0.1)
 
+"""
+## Evaluate the trained model
+"""
 
 score = model.evaluate(x_test, y_test, verbose=0)
 print("Test loss:", score[0])
 print("Test accuracy:", score[1])
 
-model.save('/home/pi/handrecog/keras_convnet_adam')
+model.save('mnist_trained_model.h5') 
