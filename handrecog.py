@@ -113,11 +113,11 @@ def main():
 			frame = vidStream.read()
 			frame = imutils.resize(frame, width=400)
 		 
-			#Creates a timestamp on the image.
-			timestamp = datetime.datetime.now()
-			ts = timestamp.strftime("%A %d %B %Y %I:%M:%S%p")
-			cv2.putText(frame, ts, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX,
-				0.35, (0, 0, 255), 1)
+			##Creates a timestamp on the image.
+			#timestamp = datetime.datetime.now()
+			#ts = timestamp.strftime("%A %d %B %Y %I:%M:%S%p")
+			#cv2.putText(frame, ts, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX,
+			#	0.35, (0, 0, 255), 1)
 		 
 			#Show frame in Window Preview
 			cv2.imshow("Window Preview", frame)
